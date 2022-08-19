@@ -1,9 +1,20 @@
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Spinner from './Spinner'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default class NewsItem extends Component {
+  static defaultProps = {
+    country: 'in',
+    category:'business',
+    pageSize: 10
+  }
+  static propTypes = {
+    country: PropTypes.string,
+    category: PropTypes.string,
+    pageSize:PropTypes.number,
+  }
         constructor(){
             super()
             this.state = {
@@ -18,7 +29,7 @@ export default class NewsItem extends Component {
         }
 
        async componentDidMount(){
-         let url = `https://newsapi.org/v2/top-headlines?country=in&pageSize=${this.state.pageSize}&page=${this.state.page}&apiKey=39bee7f24dbb4465a88a66f1bd77d4c6`;
+         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&pageSize=${this.state.pageSize}&page=${this.state.page}&apiKey=39bee7f24dbb4465a88a66f1bd77d4c6`;
          let data = await fetch(url);
          let parsdata = await data.json();
          this.setState({articles:parsdata.articles , articleNo:this.state.articleNo + this.state.pageSize , totalResult : parsdata.totalResults , loading : false , page : this.state.page + 1});
@@ -28,7 +39,7 @@ export default class NewsItem extends Component {
         fetchMoreData = async ()=>{
           this.setState({page: this.state.page + 1});
           console.log(this.state.page);
-          let url = `https://newsapi.org/v2/top-headlines?country=in&pageSize=${this.state.pageSize}&page=${this.state.page}&apiKey=39bee7f24dbb4465a88a66f1bd77d4c6`;
+          let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&page=${this.state.page}&apiKey=39bee7f24dbb4465a88a66f1bd77d4c6`;
          let data = await fetch(url);
          let parsdata = await data.json();
          let art = parsdata.articles;
