@@ -69,9 +69,12 @@ export default class NewsItem extends Component {
                   return(
                       <div className="col-md-4 mb-4"  key={element.url?element.url:""}>
                         <div className="card">
+                        <span className="position-absolute top-0 start-100 badge rounded-pill bg-danger" style={{transform:"translate(-95%,-50%)"}}>
+                                  {element.source.name}
+                        </span>
                           <img style={{height:"15rem"}} src={element.urlToImage?element.urlToImage:"https://images.moneycontrol.com/static-mcnews/2021/08/Account-aggregators-featured.jpg"} className="card-img-top" alt="..."/>
                           <div className="card-body">
-                              <h5 className="card-title" style={{height:"100px"}}>{element.title?element.title:"Trending news"}</h5>
+                              <h5 className="card-title" style={{height:"100px",fontSize:"17px", marginBottom:"10px",overflowY :"hidden"}}>{element.title?element.title:"Trending news"}</h5>
                               <p className="card-text" style={{height:"70px" , overflowY :"hidden"}}>{element.description?element.description:"Click on read more to know more about it."}</p>
                               <a href={element.url} className="btn btn-dark"> Read More </a>
                             </div>
